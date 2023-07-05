@@ -38,8 +38,7 @@ const ManageUser = () => {
     setDataDeleteUser(deleteUser);
   };
   const handleDeleteUser = (user) => {
-    let cloneListUsers = [...listUsers];
-    cloneListUsers.filter((item) => item.id !== user.id);
+    let cloneListUsers = listUsers.filter((item) => item.id !== user.id);
     setlistUsers(cloneListUsers);
   };
 
