@@ -22,8 +22,18 @@ const TableListUser = (props) => {
                 <td>{item.first_name}</td>
                 <td>{item.last_name}</td>
                 <td>
-                  <button className="btn btn-warning">Edit</button>
-                  <button className="btn btn-danger mx-2">Delete</button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => props.handleEditUser(item)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-danger mx-2"
+                    onClick={() => props.handleBtnDeleteUser(item)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             );

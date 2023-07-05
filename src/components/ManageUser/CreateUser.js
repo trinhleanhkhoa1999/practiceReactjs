@@ -3,15 +3,30 @@ import { FcPlus } from "react-icons/fc";
 import "./CreateUser.scss";
 import { useState } from "react";
 import { postListUsers } from "../../services/apiService";
+import { toast } from "react-toastify";
 
-function CreateUser() {
+function CreateUser(props) {
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
 
   const handleSubmit = async () => {
-    let res = await postListUsers(name, job);
-
-    console.log("check res", res.data.data.data);
+    if (name === "" || job === "") {
+      toast.error("Check your name and job");
+    } else {
+      let res = await postListUsers(name, job);
+      console.log("check res", res.data);
+      if (res && res.data) {
+        toast.success("Successfully created user");
+        setName("");
+        setJob("");
+        await props.addNewUser({
+          id: res.data.id,
+          first_name: res.data.name,
+        });
+      } else {
+        toast.error("Error creating user");
+      }
+    }
   };
   return (
     <Accordion defaultActiveKey="0">
@@ -40,7 +55,11 @@ function CreateUser() {
                 onChange={(event) => setJob(event.target.value)}
               />
             </div>
-            <button className="btn btn-primary" onClick={() => handleSubmit()}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => handleSubmit()}
+            >
               Submit
             </button>
           </form>
